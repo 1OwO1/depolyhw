@@ -10,6 +10,9 @@ if (process.env.NODE_ENV === "development") {
   app.use(cors());
 }
 
+app.use(express.json());
+app.use("/api", routes);
+
 if (process.env.NODE_ENV === "production") {
   console.log("jojiosdf");
   const __dirname = path.resolve();
@@ -18,9 +21,6 @@ if (process.env.NODE_ENV === "production") {
   //     res.sendFile(path.join(__dirname, "../frontend", "build", "index.html"));
   //   });
 }
-
-app.use(express.json());
-app.use("/api", routes);
 
 db.connect();
 
