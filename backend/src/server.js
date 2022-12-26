@@ -24,7 +24,7 @@ app.use("/api", routes);
 
 db.connect();
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
