@@ -1,28 +1,31 @@
-import "../App.css";
-import { Button, Input, message, Tag } from "antd";
-import { useChat, ChatProvider } from "./hooks/useChat";
-import { useEffect, useState, useRef } from "react";
-import styled from "styled-components";
-import SignIn from "./SignIn";
-import ChatRoom from "./ChatRoom";
+import Header from './Header';
+import Body from './Body';
+import styled from 'styled-components';
+import Paper from '@material-ui/core/Paper';
 
 const Wrapper = styled.div`
+  margin: auto;
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 500px;
-  margin: auto;
 `;
+
+const StyledPaper = styled(Paper)`
+  padding: 2em;
+`;
+
 function App() {
-  const { status, signedIn, displayStatus } = useChat();
-
-  useEffect(() => {
-    displayStatus(status);
-  }, [status]);
-
-  return <Wrapper>{signedIn ? <ChatRoom /> : <SignIn />}</Wrapper>;
+  return (
+    <Wrapper>
+      <StyledPaper elevation={3}>
+        <Header />
+        <Body />
+      </StyledPaper>
+    </Wrapper>
+  );
 }
 
 export default App;
