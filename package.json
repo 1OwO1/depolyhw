@@ -1,5 +1,5 @@
 {
-  "name": "111-1-deploy-demo",
+  "name": "deployhw",
   "version": "1.0.0",
   "scripts": {
     "install:all": "cd frontend && yarn install && cd ../backend && yarn install",
@@ -13,5 +13,8 @@
   "author": "madmaxieee <76544194+madmaxieee@users.noreply.github.com>",
   "license": "MIT",
   "main": "index.js",
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "yarn@1.22.19",
+  "dependencies": {
+    "antd": "^5.1.0"
+  }
 }

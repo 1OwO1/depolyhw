@@ -3,6 +3,7 @@
 ## prepare your packages
 
 file structure:
+
 ```
 .
 ├── .editorconfig
@@ -41,9 +42,11 @@ file structure:
 ```
 
 ### add necessary scripts
+
 1. add a script at the project's root that install packages in frontend and backend with the option `--freeze-lockfile`
 2. add a script that runs the `build` command in `./frontend`
 3. add a script that runs the `deploy` command in `./backend`
+
 ```
 {
   ...
@@ -59,14 +62,13 @@ file structure:
 
 ### set up api route in production environment
 
-`process.env.NODE_ENV` equals to `"production"` when running `yarn build` (`react-scripts build`)
+`process.env._ENV` equals to `"production"` when running `yarn build` (`react-scripts build`)
+
 ```js
 import axios from "axios";
 
 const API_ROOT =
-  process.env.NODE_ENV === "production"
-    ? "/api"
-    : "http://localhost:4000/api";
+  process.env.NODE_ENV === "production" ? "/api" : "http://localhost:4000/api";
 
 export const api = axios.create({ baseURL: API_ROOT });
 ```
@@ -74,6 +76,7 @@ export const api = axios.create({ baseURL: API_ROOT });
 ### server the output folder with backend
 
 The default path of the output folder for `react-scripts build` is `./frontend/build`.
+
 ```js
 import path from "path";
 
@@ -95,11 +98,12 @@ if (process.env.NODE_ENV === "production") {
 
 ```js
 if (process.env.NODE_ENV === "development") {
-	app.use(cors());
+  app.use(cors());
 }
 ```
 
 ### add a Dockerfile at the project's root
+
 ```dockerfile
 FROM node:16-alpine
 
@@ -114,21 +118,22 @@ RUN yarn build
 
 CMD ["yarn", "deploy"]
 ```
+
 ### setup a project on [Railway.app](https://railway.app/)
+
 1. create an account
 2. start a new project
-    ![](https://i.imgur.com/0Mettdj.jpg)
+   ![](https://i.imgur.com/0Mettdj.jpg)
 
 3. select deploy from Github repo
-    ![](https://i.imgur.com/NvuXKLq.jpg)
+   ![](https://i.imgur.com/NvuXKLq.jpg)
 
 4. select your repo
-    ![](https://i.imgur.com/cgm3YhG.png)
-    railway should be building your docker image
+   ![](https://i.imgur.com/cgm3YhG.png)
+   railway should be building your docker image
 
 5. generate a domain for your project
-    ![](https://i.imgur.com/dAc3asR.png)
+   ![](https://i.imgur.com/dAc3asR.png)
 
 6. connect to your app with the generated domain
-    ![](https://i.imgur.com/6rvX0mW.jpg)
-"# depolyhw" 
+   ![](https://i.imgur.com/6rvX0mW.jpg)
