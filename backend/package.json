@@ -24,7 +24,7 @@
     "dotenv-defaults": "^5.0.2"
   },
   "scripts": {
-    "server": "nodemon src/server.js --ext js --watch src --exec babel-node",
+    "server": "nodemon server.js --ext js --watch src --exec babel-node",
     "deploy": "set NODE_ENV=production babel-node server.js  "
   }
 }

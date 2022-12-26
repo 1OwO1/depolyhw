@@ -1,10 +1,10 @@
 import express from "express";
 //import cors from "cors";
-import mongo from "./mongo";
+import mongo from "./src/mongo";
 import mongoose from "mongoose";
 import http from "http";
 import WebSocket from "ws";
-import wsConnect from "./wsConnect";
+import wsConnect from "./src/wsConnect";
 import dotenv from "dotenv-defaults";
 //import routes from "./routes"
 mongo.connect();
