@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+基礎項目：都完成
+
+進階項目：
+1. 增新Table
+2. 增新Add Table
+3. 增新Query Table
+ p.s. Table會顯示的時機：最新輸入的指令底下，如果需要顯示List則會顯示
+

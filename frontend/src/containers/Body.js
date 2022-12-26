@@ -9,6 +9,19 @@ import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
+import Box from '@mui/material/Box';
+import TabPanel from './TabPanel';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
+import DenseTable from './DenseTable';
+
 import { useStyles } from '../hooks';
 import axios from '../api';
 import { useScoreCard } from '../hooks/useScoreCard';
@@ -39,7 +52,7 @@ const ContentPaper = styled(Paper)`
 const Body = () => {
   const classes = useStyles();
 
-  const { messages, addCardMessage, addRegularMessage, addErrorMessage } =
+  const { messages, TableMessage, addCardMessage, addRegularMessage, addErrorMessage, updateTableMessage } =
     useScoreCard();
 
   const [name, setName] = useState('');
@@ -61,24 +74,48 @@ const Body = () => {
       subject,
       score,
     });
-
     if (!card) addErrorMessage(message);
-    else addCardMessage(message);
+    else{
+      addCardMessage(message);
+      updateTableMessage([...card]);
+    };
   };
 
   const handleQuery = async () => {
     const {
-      data: { messages, message },
+      data: { messages, message, card },
     } = await axios.get('/cards', {
       params: {
         type: queryType,
         queryString,
       },
     });
-
+   
     if (!messages) addErrorMessage(message);
-    else addRegularMessage(...messages);
+    else{
+      addRegularMessage(...messages);
+      updateTableMessage(card);
+    };
   };
+
+  //table
+
+
+
+// Tabs
+
+  const [value, setValue] = useState(0);
+
+  const handleChangeTab = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
 
   return (
     <Wrapper>
@@ -151,12 +188,64 @@ const Body = () => {
           Query
         </Button>
       </Row>
-      <ContentPaper variant="outlined">
+      {/* <ContentPaper variant="outlined">
         {messages.map((m, i) => (
           <Typography variant="body2" key={m + i} style={{ color: m.color }}>
             {m.message}
           </Typography>
         ))}
+      </ContentPaper> */}
+      <ContentPaper variant="outlined">
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChangeTab} aria-label="lab API tabs example">
+            <Tab label="Add" {...a11yProps(0)} />
+            <Tab label="Query" {...a11yProps(0)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+        {messages.map((m, i) => {
+            const FirstLetter=m.message[0];
+            if(FirstLetter==='A'|| FirstLetter==='D' || (FirstLetter==='U' && !(i===(messages.length-1)))){
+              return(
+                <Typography variant="body2" key={m + i} style={{ color: m.color }}>
+                  {m.message}
+                </Typography>
+              )
+            }
+            else if( FirstLetter==='U' ){
+              return(
+                <>
+                  <Typography variant="body2" key={m + i} style={{ color: m.color }}>
+                    {m.message}
+                  </Typography>
+                  {DenseTable(TableMessage)}
+                </>
+              )
+            }
+          })}
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          {messages.map((m, i) => {
+            const FirstLetter=m.message[0];
+            if(FirstLetter==='N' || FirstLetter==='S' || (FirstLetter==='F' && !(i===(messages.length-1)))){
+              return(
+                <Typography variant="body2" key={m + i} style={{ color: m.color }}>
+                  {m.message}
+                </Typography>
+              )
+            }
+            else if((FirstLetter==='F')){
+              return(
+                <>
+                  <Typography variant="body2" key={m + i} style={{ color: m.color }}>
+                    {m.message}
+                  </Typography>
+                  {DenseTable(TableMessage)}
+                </>
+              )
+            }
+          })}
+        </TabPanel>
       </ContentPaper>
     </Wrapper>
   );
