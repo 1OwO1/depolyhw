@@ -4,11 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "cd frontend && yarn start",
+    "server": "cd backend && yarn server",
     "install:prod": "cd frontend && yarn install --freeze-lockfile && cd ../backend && yarn install --freeze-lockfile",
     "build": "cd frontend && yarn build",
     "deploy": "cd backend && yarn deploy"
   },
   "dependencies": {
-    "cors": "^2.8.5"
+    "dotenv-defaults": "^5.0.2",
+    "mongoose": "^6.7.1"
   }
 }
