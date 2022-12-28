@@ -9,7 +9,6 @@ if (process.env.NODE_ENV === "development") {
   app.use(cors());
 }
 
-app.use(express.json());
 app.use("/", routes);
 
 if (process.env.NODE_ENV === "production") {
@@ -22,7 +21,7 @@ if (process.env.NODE_ENV === "production") {
 
 db.connect();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
