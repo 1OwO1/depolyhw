@@ -10,6 +10,9 @@ const __dirname = path.resolve();
 console.log(__dirname);
 app.use(express.json());
 app.use(cors());
+
+console.log({ node_env: process.env.NODE_ENV });
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend", "build")));
   app.get("/*", function (req, res) {
